@@ -1,0 +1,3 @@
+Compilation: make
+Run: python3 start.py
+Requirements: python3,pyuic5,PyQt5

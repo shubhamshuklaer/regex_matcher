@@ -82,21 +82,41 @@
        <attribute name="title">
         <string>NFA</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="QGraphicsView" name="nfa_graphic_view"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="dfa_tab">
        <attribute name="title">
         <string>DFA</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QGraphicsView" name="dfa_graphic_view"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="min_dfa_tab">
        <attribute name="title">
         <string>Mimimized DFA</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QGraphicsView" name="min_dfa_graphic_view"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="animation_tab">
        <attribute name="title">
         <string>Animation</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QGraphicsView" name="animation_graphic_view"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
