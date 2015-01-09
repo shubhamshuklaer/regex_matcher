@@ -1,0 +1,1 @@
+""" automata class """
