@@ -11,11 +11,14 @@ class automata:
         self.states = set()
         self.states.add(0)
         self.transitions[0] = dict()
+
     def error(self,msg):
         sys.stderr.write(msg)
         sys.exit(1)
+    
     def epsilon(self):
         return '#'
+    
     def add_transition(self,from_state, input_char, to_state):
         if input_char not in self.char_set:
             self.char_set.add(input_char)
@@ -56,23 +59,49 @@ class automata:
         self.states.add(self.get_new_state())
         self.states.add(self.num_states)
         self.transitions[self.num_states] = dict()
-        self.num_states = self.num_states+1
+        self.num_states = self.num_states + 1
         
 
     def get_transition(self,from_state,input_char):
+        # print "getting transition from ", from_state, " on input ", input_char
         if from_state not in self.states:
-            self.error("state "+str(from_state)+" doesn't exist")
+            self.error("state "+str(from_state)+" doesn't exist\n")
+        # print "ok_5"
         if input_char in self.transitions[from_state]:
             return self.transitions[from_state][input_char]
         else:
             return []
 
+    def get_all_transitions(self, from_state, input_char):
+        # print "getting all transitions from ", from_state, " on input ", input_char
+        # print "states: ", self.states
+        if from_state not in self.states:
+            self.error("state "+str(from_state)+" doesn't exist\n")
+        # print "trying closure of", from_state
+        from_state_closure = self.eps_closure(from_state)
+        ret = set()
+        for state in from_state_closure:
+            if input_char in self.transitions[state]:
+                temp_list = self.transitions[state][input_char]
+                for l in temp_list:
+                    ret.add(l)
+        # print ret, len(ret)
+        temp_set = ret.copy()
+        for state in temp_set:
+            # print "trying closure of", state
+            state_closure = self.eps_closure(state)
+            for s in state_closure:
+                ret.add(s)
+        # print "returning ret"
+        return ret
+
     def eps_closure(self,state):
+        # print "getting closure of ", state
         s = set()
         temp = set()
         s.add(state)
         if state not in self.states:
-            self.error("state "+str(state)+" doesn't exist")
+            self.error("state "+str(state)+" doesn't exist\n")
         if '#' in self.transitions[state]:            
             for x in self.transitions[state][self.epsilon()]:
                 s.add(x)
@@ -88,18 +117,17 @@ class automata:
                 temp.clear()
                 temp = temp2
         return s
-                
-##t = automata('nfa')
-##t.add_char("x")
-##t.add_char("y")
-##t.add_state()
-##t.add_state()
-##t.add_state()
-##t.add_state()
-##t.add_transition(1,'#',3)
-##t.add_transition(1,'#',2)
-##t.add_transition(2,'#',3)
-##t.add_transition(3,'#',4)
-##t.add_final_state(3)
-##print t.if_final_state(4)
-##
+        
+    def display_transitions(self, from_state):
+        print str(from_state)," :",
+        for ch in self.char_set:
+            trans = self.get_transition(from_state, ch)
+            for state in trans:
+                print "\t", str(ch), "->", str(state)
+
+    def display_automata(self):
+        print "-----------------\ndisplaying ", self.arg
+        for state in self.states:
+            self.display_transitions(state)
+        print "\n-----------------"
+
