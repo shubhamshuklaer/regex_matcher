@@ -31,26 +31,26 @@ class nfa2dfa:
 				ums_closure = set()
 				for r in self.dfa_states_set[ums]:
 					ums_closure.update(self.nfa.eps_closure(int(r)))
-					# print "set: ",ums_closure," on input: ",ch
+					# print( "set: ",ums_closure," on input: ",ch )
 					temp_set = set()
 					for state in ums_closure:
 						temp_states = self.nfa.get_all_transitions(int(state), ch)
 						temp_set.update(temp_states)
 
 					if temp_set not in self.dfa_states_set and len(temp_set) > 0:
-						# print "adding set to dfa: ",  temp_set
+						# print( "adding set to dfa: ",  temp_set )
 						siz = len(self.dfa_states_set)
 						self.dfa_states_set.append(temp_set)
 						self.marked_states[self.dfa.get_new_state()] = False
 						self.dfa.add_state()
 						if len(temp_set) > 0:
 							self.dfa.add_transition(ums, ch, siz)
-			# print "dfa size = ", len(self.dfa_states_set)
-			# print "no. marked states = ", self.num_marked_states
+			# print( "dfa size = ", len(self.dfa_states_set) )
+			# print( "no. marked states = ", self.num_marked_states )
 
 	def get_unmarked_state(self):
 		for k in self.marked_states.keys():
-			# print str(k), "-->", self.marked_states[k]
+			# print( str(k), "-->", self.marked_states[k] )
 			if not self.marked_states[k]:
 				return int(k)
 		return None
@@ -66,10 +66,11 @@ class nfa2dfa:
 		self.dfa.display_automata()
 
 	def display_mapping(self):
-		print "-----------------"
-		print "displaying mapping from nfa to dfa"
+		print( "-----------------" )
+		print( "displaying mapping from nfa to dfa" )
+		print( "\n-----------------" )
 		state_num = 0
 		for state_set in self.dfa_states_set:
-			print state_num, " : ", state_set
+			print( state_num, " : ", state_set )
 			state_num = state_num + 1
-		print "\n-----------------"
+		

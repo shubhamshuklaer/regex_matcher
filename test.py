@@ -1,6 +1,6 @@
 from automata import *
 from nfa2dfa import *
-
+# import PyQt5.QtSvg
 
 aut_nfa = automata('nfa')
 aut_nfa.add_char("x")
@@ -18,14 +18,15 @@ aut_nfa.add_transition(4,'y',1)
 
 
 aut_nfa.add_final_state(3)
-# print aut_nfa.if_final_state(4)
+# print( aut_nfa.if_final_state(4) )
 aut_nfa.display_automata()
 
-# print aut_nfa.eps_closure(0)
+# print( aut_nfa.eps_closure(0) )
 
 aut_dfa = nfa2dfa('nfa2dfa')
 aut_dfa.set_nfa(aut_nfa)
 aut_dfa.set_charset(aut_nfa.char_set)
 aut_dfa.build_dfa()
 aut_dfa.display_automata()
+automata.display_nx_automata(aut_dfa.dfa)
 

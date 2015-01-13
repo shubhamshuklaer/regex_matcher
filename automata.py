@@ -1,4 +1,7 @@
+from __future__ import print_function
 import sys
+from gui import *
+
 class automata:
     def __init__(self,arg):
         self.arg = arg
@@ -63,21 +66,21 @@ class automata:
         
 
     def get_transition(self,from_state,input_char):
-        # print "getting transition from ", from_state, " on input ", input_char
+        # print( "getting transition from ", from_state, " on input ", input_char )
         if from_state not in self.states:
             self.error("state "+str(from_state)+" doesn't exist\n")
-        # print "ok_5"
+        # print( "ok_5" )
         if input_char in self.transitions[from_state]:
             return self.transitions[from_state][input_char]
         else:
             return []
 
     def get_all_transitions(self, from_state, input_char):
-        # print "getting all transitions from ", from_state, " on input ", input_char
-        # print "states: ", self.states
+        # print( "getting all transitions from ", from_state, " on input ", input_char )
+        # print( "states: ", self.states )
         if from_state not in self.states:
             self.error("state "+str(from_state)+" doesn't exist\n")
-        # print "trying closure of", from_state
+        # print( "trying closure of", from_state )
         from_state_closure = self.eps_closure(from_state)
         ret = set()
         for state in from_state_closure:
@@ -85,18 +88,18 @@ class automata:
                 temp_list = self.transitions[state][input_char]
                 for l in temp_list:
                     ret.add(l)
-        # print ret, len(ret)
+        # print( ret, len(ret) )
         temp_set = ret.copy()
         for state in temp_set:
-            # print "trying closure of", state
+            # print( "trying closure of", state )
             state_closure = self.eps_closure(state)
             for s in state_closure:
                 ret.add(s)
-        # print "returning ret"
+        # print( "returning ret" )
         return ret
 
     def eps_closure(self,state):
-        # print "getting closure of ", state
+        # print( "getting closure of ", state )
         s = set()
         temp = set()
         s.add(state)
@@ -119,15 +122,20 @@ class automata:
         return s
         
     def display_transitions(self, from_state):
-        print str(from_state)," :",
+        print( str(from_state)," :", )
         for ch in self.char_set:
             trans = self.get_transition(from_state, ch)
             for state in trans:
-                print "\t", str(ch), "->", str(state)
+                print( "\t", str(ch), "->", str(state) )
 
     def display_automata(self):
-        print "-----------------\ndisplaying ", self.arg
+        print( "-----------------\ndisplaying ", self.arg )
+        print( "\n-----------------" )
         for state in self.states:
             self.display_transitions(state)
-        print "\n-----------------"
+        
+
+    def display_nx_automata(self):
+        gui_obj = gui("nx_gui")
+        nx_graph = gui_obj.to_nx_graph(self)
 
