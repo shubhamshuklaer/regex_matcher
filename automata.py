@@ -93,8 +93,7 @@ class automata:
         for state in temp_set:
             # print( "trying closure of", state )
             state_closure = self.eps_closure(state)
-            for s in state_closure:
-                ret.add(s)
+            ret.update(list(state_closure))
         # print( "returning ret" )
         return ret
 
@@ -130,7 +129,7 @@ class automata:
 
     def display_automata(self):
         print( "-----------------\ndisplaying ", self.arg )
-        print( "\n-----------------" )
+        print( "-----------------" )
         for state in self.states:
             self.display_transitions(state)
         

@@ -68,7 +68,7 @@ class nfa2dfa:
 	def display_mapping(self):
 		print( "-----------------" )
 		print( "displaying mapping from nfa to dfa" )
-		print( "\n-----------------" )
+		print( "-----------------" )
 		state_num = 0
 		for state_set in self.dfa_states_set:
 			print( state_num, " : ", state_set )
