@@ -136,5 +136,7 @@ class automata:
 
     def display_nx_automata(self):
         gui_obj = gui("nx_gui")
-        nx_graph = gui_obj.to_nx_graph(self)
+        nx_2d_graph = gui_obj.to_nx_2d_graph(self)
+        nx_3d_graph = gui_obj.to_nx_3d_graph(nx_2d_graph)
+        
 

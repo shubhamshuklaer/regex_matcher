@@ -1,29 +1,37 @@
-import pylab
-import time
+# needs mayavi2
+# run with ipython -wthread
+import networkx as nx
+import numpy as np
+from mayavi import mlab
 
-pylab.ion() # animation on
+# some graphs to try
+# H=nx.krackhardt_kite_graph()
+# H=nx.Graph();H.add_edge('a','b');H.add_edge('a','c');H.add_edge('a','d')
+# H=nx.grid_2d_graph(4,5)
+H=nx.cycle_graph(20)
 
-# Note the comma after line. This is placed here because 
-# plot returns a list of lines that are drawn.
-line, = pylab.plot(0,1,'ro',markersize=6) 
-pylab.axis([0,1,0,1])
+# reorder nodes from 0,len(G)-1
+G=nx.convert_node_labels_to_integers(H)
+# 3d spring layout
+pos=nx.spring_layout(G,dim=3)
+# numpy array of x,y,z positions in sorted node order
+xyz=np.array([pos[v] for v in sorted(G)])
+# scalar colors
+scalars=np.array(G.nodes())+5
 
-line.set_xdata([1,2,3])  # update the data
-line.set_ydata([1,2,3])
-pylab.draw() # draw the points again
-time.sleep(6)
+mlab.figure(1, bgcolor=(0, 0, 0))
+mlab.clf()
 
-line1, = pylab.plot([4],[5],'g*',markersize=8) 
-pylab.draw() 
+pts = mlab.points3d(xyz[:,0], xyz[:,1], xyz[:,2],
+                    scalars,
+                    scale_factor=0.1,
+                    scale_mode='none',
+                    colormap='Blues',
+                    resolution=20)
 
-for i in range(10):
-    line.set_xdata([1,2,3])  # update the data
-    line.set_ydata([1,2,3])
-    pylab.draw() # draw the points again
-    time.sleep(1)
+pts.mlab_source.dataset.lines = np.array(G.edges())
+tube = mlab.pipeline.tube(pts, tube_radius=0.01)
+mlab.pipeline.surface(tube, color=(0.8, 0.8, 0.8))
 
-print("done up there")
-line2, = pylab.plot(3,2,'b^',markersize=6)     
-pylab.draw() 
-
-time.sleep(20)
+mlab.savefig('anim_out.png')
+mlab.show() # interactive window

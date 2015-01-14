@@ -1,5 +1,6 @@
 """NFA to DFA class"""
 
+from __future__ import print_function
 from automata import *
 class nfa2dfa:
 	"""docstring for nfa2dfa"""
