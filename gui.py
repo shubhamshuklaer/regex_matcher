@@ -17,10 +17,8 @@ class gui:
 			for key, value in aut.transitions[k].items():
 				for v in value:
 					ret.add_edge(k, v, input_char=key, color='red')
-		
-		ret.add_edge(1, 0 , input_char='x', color='red')
 		nx.draw_spectral(ret)
-		# plt.show()
+		plt.show()
 		return ret
 
 	def to_nx_3d_graph(self, graph_2d):
@@ -28,7 +26,7 @@ class gui:
 		graph_3d=nx.convert_node_labels_to_integers(graph_2d)
 		
 		# 3d spring layout
-		pos=nx.graphviz_layout(graph_3d)
+		pos=nx.spring_layout(graph_3d)
 		# numpy array of x,y,z positions in sorted node order
 		xyz=np.array([pos[v] for v in sorted(graph_3d)])
 		# set labels

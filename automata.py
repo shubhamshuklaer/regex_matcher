@@ -22,6 +22,9 @@ class automata:
     def epsilon(self):
         return '#'
     
+    def get_final_states(self):
+        return self.e_states
+
     def add_transition(self,from_state, input_char, to_state):
         if input_char not in self.char_set:
             self.char_set.add(input_char)
@@ -133,10 +136,9 @@ class automata:
         for state in self.states:
             self.display_transitions(state)
         
-
     def display_nx_automata(self):
         gui_obj = gui("nx_gui")
         nx_2d_graph = gui_obj.to_nx_2d_graph(self)
-        nx_3d_graph = gui_obj.to_nx_3d_graph(nx_2d_graph)
+        # nx_3d_graph = gui_obj.to_nx_3d_graph(nx_2d_graph)
         
 
