@@ -1,7 +1,6 @@
 from automata import *
 import networkx as nx
 import numpy as np
-from mayavi import mlab
 import matplotlib.pyplot as plt
 
 class gui:
@@ -60,3 +59,4 @@ class gui:
 		mlab.savefig('pics/3d_out.png')
 		mlab.show() # interactive window
 		return graph_3d
+

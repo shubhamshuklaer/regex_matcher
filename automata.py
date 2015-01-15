@@ -1,6 +1,7 @@
 from __future__ import print_function
 import sys
-#from gui import *
+from gui import *
+
 
 class automata:
     def __init__(self,arg):
