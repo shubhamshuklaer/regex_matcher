@@ -61,9 +61,11 @@ class regex2nfa(QtCore.QObject):
                     initial_state=new_state
                     self.nfa.add_state()
                     new_state+=1
+                    self.nfa.add_transition(final_state,epsilon,new_state)
                     final_state=new_state
 
-                    self.nfa.add_transition(initial_state,epsilon,final_state)
+                    self.nfa.add_transition(final_state,epsilon,initial_state)
+                    logging.warning(final_state)
 
                     stack.append((initial_state,final_state))
                 elif (char == "+"):
@@ -98,10 +100,7 @@ class regex2nfa(QtCore.QObject):
         
         temp_tuple=stack.pop()
         self.nfa.add_transition(0,epsilon,temp_tuple[0])
-        self.nfa.add_state()
-        new_state+=1
-        self.nfa.add_transition(temp_tuple[1],epsilon,new_state)
-        self.nfa.add_final_state(new_state)
+        self.nfa.add_final_state(temp_tuple[1])
                 
 
         self.nfa.display_automata()

@@ -3,3 +3,4 @@ __pycache__
 ui_*.py
 PyQt-gpl-5.4/
 sip-4.16.5/
+*.pyc
