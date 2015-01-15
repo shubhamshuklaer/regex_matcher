@@ -18,6 +18,7 @@ class nfa2dfa:
 		self.nfa = aut_nfa
 
 	def build_dfa(self):
+		self.dfa.s_states = [0]
 		self.dfa_states_set.append(self.nfa.eps_closure(self.nfa.s_states[0]))
 		self.marked_states[str(0)] = False
 		while self.num_marked_states < len(self.dfa_states_set):
@@ -31,6 +32,7 @@ class nfa2dfa:
 					continue
 				ums_closure = set()
 				for r in self.dfa_states_set[ums]:
+
 					ums_closure.update(self.nfa.eps_closure(int(r)))
 					# print( "set: ",ums_closure," on input: ",ch )
 					temp_set = set()
@@ -46,8 +48,25 @@ class nfa2dfa:
 						self.dfa.add_state()
 						if len(temp_set) > 0:
 							self.dfa.add_transition(ums, ch, siz)
+
 			# print( "dfa size = ", len(self.dfa_states_set) )
 			# print( "no. marked states = ", self.num_marked_states )
+		new_state_num = self.dfa.get_new_state()
+		self.dfa.add_state()
+		for state in self.dfa.states:
+				if 'x' not in self.dfa.transitions[state].keys():
+					self.dfa.add_transition(state, 'x', new_state_num)
+				if 'y' not in self.dfa.transitions[state].keys():
+					self.dfa.add_transition(state, 'y', new_state_num)
+		# set final states
+		state_num = 0
+		for state_set in self.dfa_states_set:
+			if len(state_set.intersection(self.nfa.e_states)) > 0:
+				if state_num not in self.dfa.e_states:
+					self.dfa.e_states.append(state_num)
+			state_num = state_num + 1
+		
+
 
 	def get_unmarked_state(self):
 		for k in self.marked_states.keys():

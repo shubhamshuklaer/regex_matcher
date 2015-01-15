@@ -44,7 +44,7 @@ nfa2dfa_obj.set_charset(aut_nfa.char_set)
 nfa2dfa_obj.build_dfa()
 aut_dfa = nfa2dfa_obj.dfa
 nfa2dfa_obj.display_automata()
-automata.display_nx_automata(aut_dfa)
+# automata.display_nx_automata(aut_dfa)
 
 		##########
 		# Part 3 #
@@ -55,3 +55,7 @@ nfa2mindfa_obj.minimiseIt()
 
 aut_min_dfa = automata("min_dfa")
 aut_min_dfa = nfa2mindfa_obj.create_new_dfa()
+aut_min_dfa.display_automata()
+#print aut_min_dfa.e_states
+print aut_min_dfa.accepting_string("xxy")
+print aut_dfa.accepting_string("xxy")

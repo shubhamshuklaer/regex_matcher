@@ -135,10 +135,19 @@ class automata:
         print( "-----------------" )
         for state in self.states:
             self.display_transitions(state)
+        print("start states: ", self.s_states)
+        print("final states: ", self.e_states)
         
     def display_nx_automata(self):
         gui_obj = gui("nx_gui")
         nx_2d_graph = gui_obj.to_nx_2d_graph(self)
         # nx_3d_graph = gui_obj.to_nx_3d_graph(nx_2d_graph)
         
-
+    def accepting_string(self,s):
+        state = 0 
+        for i in range(0,len(s)-1):
+            state = self.get_transition(state,s[i])[0]
+        if(state in self.e_states):
+            return True
+        else:
+            return False

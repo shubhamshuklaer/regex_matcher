@@ -36,6 +36,7 @@ class dfa2mindfa:
                     #print x,y,state,group
                     pair[state] = ((0.5)*(x+y)*(x+y+1)) + y
                 pair = sorted(pair.items(), key=operator.itemgetter(1))
+                #print(self.states[group])
                 num = pair[0][1]
                 new_list = False
                 i = 1
@@ -58,7 +59,6 @@ class dfa2mindfa:
                         temp = temp+1
                         new_list = True
 
-            print self.states
             if(temp != 0):
                 check = True
                 self.numberOfdisSet = self.numberOfdisSet+temp
@@ -66,7 +66,15 @@ class dfa2mindfa:
                 check = False
 
     def create_new_dfa(self):
+        #print self.states
         new_automata = automata("Min Dfa")
+        for group in self.states:
+            if 0 in self.states[group] and group!=0:
+                temp = set()
+                temp = self.states[group]
+                self.states[group] = self.states[0]
+                self.states[0] = temp
+        #print self.states        
         for group in self.states:
             if(len(self.states[group])!=0 and (0 not in self.states[group])):
                 new_automata.add_state()
@@ -77,11 +85,12 @@ class dfa2mindfa:
                 break
         for group in self.states:
             for state in self.states[group]:
-                if state in self.f:
+                if (state in self.f) and (group not in new_automata.e_states):
                     new_automata.add_final_state(group)
         return new_automata
     
-
+   
+        
 """
 
 p = automata("DFA")
