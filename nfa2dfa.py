@@ -54,10 +54,9 @@ class nfa2dfa:
 		new_state_num = self.dfa.get_new_state()
 		self.dfa.add_state()
 		for state in self.dfa.states:
-				if 'x' not in self.dfa.transitions[state].keys():
-					self.dfa.add_transition(state, 'x', new_state_num)
-				if 'y' not in self.dfa.transitions[state].keys():
-					self.dfa.add_transition(state, 'y', new_state_num)
+			for ch in self.dfa.char_set:
+				if ch not in self.dfa.transitions[state].keys():
+					self.dfa.add_transition(state, ch, new_state_num)
 		# set final states
 		state_num = 0
 		for state_set in self.dfa_states_set:

@@ -10,7 +10,7 @@ class regex2nfa(QtCore.QObject):
     def __init__(self,regex):
         super(QtCore.QObject,self).__init__()
         self.operators=["+","(",")","*","&"]
-        self.alphabets=['a','b']
+        self.alphabets=['x','y']
         self.regex=regex
         self.nfa=automata("nfa")
 

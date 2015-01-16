@@ -28,7 +28,8 @@ class automata:
 
     def add_transition(self,from_state, input_char, to_state):
         if input_char not in self.char_set:
-            self.char_set.add(input_char)
+            if input_char != '#':
+                self.char_set.add(input_char)
 
         if from_state not in self.states:
             self.error("state not defined "+str(from_state))
@@ -136,13 +137,14 @@ class automata:
         print( "-----------------" )
         for state in self.states:
             self.display_transitions(state)
-        print("start states: ", self.s_states)
-        print("final states: ", self.e_states)
+        print("start state(s): ", self.s_states)
+        print("final state(s): ", self.e_states)
         
-    def display_nx_automata(self):
+    def display_nx_automata(self, pic_name, title_name):
         gui_obj = gui("nx_gui")
-        nx_2d_graph = gui_obj.to_nx_2d_graph(self)
-        # nx_3d_graph = gui_obj.to_nx_3d_graph(nx_2d_graph)
+        gui_obj.set_name(pic_name)
+        gui_obj.set_title(title_name)
+        nx_graph = gui_obj.to_nx_graph(self)
         
     def accepting_string(self,s):
         state = 0 

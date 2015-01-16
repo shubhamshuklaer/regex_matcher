@@ -1,5 +1,6 @@
 from automata import *
 import operator
+
 class dfa2mindfa:
     def __init__(self,arg):
         self.states = dict()
@@ -88,37 +89,3 @@ class dfa2mindfa:
                 if (state in self.f) and (group not in new_automata.e_states):
                     new_automata.add_final_state(group)
         return new_automata
-    
-   
-        
-"""
-
-p = automata("DFA")
-p.add_state()
-p.add_state()
-p.add_state()
-p.add_final_state(3)
-p.add_transition(0,'x',1)
-p.add_transition(0,'y',2)
-p.add_transition(1,'x',0)
-p.add_transition(1,'y',3)
-p.add_transition(2,'x',0)
-p.add_transition(2,'y',3)
-p.add_transition(3,'x',3)
-p.add_transition(3,'y',3)
-
-t = dfa2mindfa(p)
-
-t.minimiseIt()        
-
-new_automata = automata("minDfa")
-new_automata = t.create_new_dfa()
-
-print new_automata.get_transition(0,'x')
-print new_automata.get_transition(0,'y')
-print new_automata.get_transition(1,'x')
-print new_automata.get_transition(1,'y')
-print new_automata.get_transition(2,'x')
-print new_automata.get_transition(2,'y')
-
-"""
