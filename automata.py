@@ -156,7 +156,6 @@ class automata:
         state = 0 
         for i in range(0,len(s)):
             state = self.get_transition(state,s[i])[0]
-        print (state)
         if state in self.e_states:
             return True
         else:

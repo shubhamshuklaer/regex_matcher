@@ -23,7 +23,7 @@ class nfa2dfa:
 		self.marked_states[str(0)] = False
 		while self.num_marked_states < len(self.dfa_states_set):
 			ums = self.get_unmarked_state()
-			print("got unmarked state: ", ums)
+			# print("got unmarked state: ", ums)
 			if ums == None:
 				break
 			self.update_value(str(ums), True)
@@ -34,10 +34,10 @@ class nfa2dfa:
 				ums_closure = set()
 				for r in self.dfa_states_set[ums]:
 					ums_closure.update(self.nfa.eps_closure(int(r)))
-				print( "set: ",ums_closure," on input: ",ch )
+				# print( "set: ",ums_closure," on input: ",ch )
 				temp_set = set()
 				for state in ums_closure:
-					print("state:", state, "ch: ", ch, "transitions: ", self.nfa.get_all_transitions(int(state), ch))
+					# print("state:", state, "ch: ", ch, "transitions: ", self.nfa.get_all_transitions(int(state), ch))
 					temp_states = self.nfa.get_all_transitions(int(state), ch)
 					temp_set.update(temp_states)
 

@@ -39,7 +39,6 @@ class dfa2mindfa:
                     pair[state] = ((0.5)*(x+y)*(x+y+1)) + y
                 pair = sorted(pair.items(), key=operator.itemgetter(1))
 
-                print("shri: ", self.states[group])
                 num = pair[0][1]
                 new_list = False
                 i = 1
@@ -78,7 +77,7 @@ class dfa2mindfa:
                 temp = self.states[group]
                 self.states[group] = self.states[0]
                 self.states[0] = temp
-        print(self.states)
+        # print(self.states)
         for group in self.states:
         	for state in self.states[group]:
         		self.stateToGroup[state] = group
