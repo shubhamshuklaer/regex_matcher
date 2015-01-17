@@ -31,7 +31,7 @@ class main_window(QtWidgets.QMainWindow):
 
         nfa2dfa_obj = nfa2dfa('nfa2dfa')
         nfa2dfa_obj.set_nfa(nfa)
-        nfa2dfa_obj.set_charset(self.regex2nfa_obj.nfa.char_set)
+        nfa2dfa_obj.set_charset(nfa.char_set)
         nfa2dfa_obj.build_dfa()
         aut_dfa = nfa2dfa_obj.dfa
         nfa2dfa_obj.display_automata()
