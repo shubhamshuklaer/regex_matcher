@@ -8,6 +8,8 @@ class automata:
         self.arg = arg
         self.transitions = dict()
         self.char_set = set()
+        self.char_set.add('x')
+        self.char_set.add('y')
         self.s_states = []
         self.s_states.append(0)
         self.e_states = []
@@ -49,7 +51,7 @@ class automata:
     def add_final_state(self,state):
         if state not in self.states:
             self.error("state "+str(state)+" doesn't exist")
-        self.e_states.append(state)
+        self.e_states.append(int(state))
 
     def if_final_state(self,state):
         if state in self.e_states:
@@ -152,9 +154,10 @@ class automata:
         
     def accepting_string(self,s):
         state = 0 
-        for i in range(0,len(s)-1):
+        for i in range(0,len(s)):
             state = self.get_transition(state,s[i])[0]
-        if(state in self.e_states):
+        print (state)
+        if state in self.e_states:
             return True
         else:
             return False

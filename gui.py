@@ -19,8 +19,10 @@ class gui:
 		self.title_name = title_name
 	
 	def to_nx_graph(self, aut):
-		nx_graph = nx.MultiDiGraph(splines=True, sep='+5, 5', overlap='false', nodesep='0.25', labelfontcolor='blue', labelloc='t', label=self.title_name)
-		nx_graph.add_nodes_from(list(aut.states), color='pink', style='filled', fixedsize=False)
+		nx_graph = nx.MultiDiGraph(autosize=False, size="5.75,7.25", ranksep='0.9', splines=True, sep='+5, 5',
+			overlap='false', nodesep='0.2', labelfontcolor='blue', labelloc='t', label=self.title_name)
+		nx_graph.add_nodes_from(list(aut.states), height='0.4', width='0.4', color='pink',
+			style='filled', fixedsize=False, fontsize='11')
 		
 			
 		for k in aut.transitions.keys():
@@ -39,7 +41,7 @@ class gui:
 			if int(node.get_name()) in aut.e_states:
 				node.attr['color'] = 'green'
 				node.attr['shape'] = 'doublecircle'
-			if int(node.get_name()) in aut.s_states:
+			elif int(node.get_name()) in aut.s_states:
 				node.attr['color'] = 'blue'
 				node.attr['shape'] = 'diamond'
 		gv_graph.draw('pics/'+str(self.pic_name)+'.png')

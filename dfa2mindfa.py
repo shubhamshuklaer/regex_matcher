@@ -38,7 +38,8 @@ class dfa2mindfa:
                     #print x,y,state,group
                     pair[state] = ((0.5)*(x+y)*(x+y+1)) + y
                 pair = sorted(pair.items(), key=operator.itemgetter(1))
-                #print(self.states[group])
+
+                print("shri: ", self.states[group])
                 num = pair[0][1]
                 new_list = False
                 i = 1
@@ -77,12 +78,18 @@ class dfa2mindfa:
                 temp = self.states[group]
                 self.states[group] = self.states[0]
                 self.states[0] = temp
-        #print self.states        
+        print(self.states)
+        for group in self.states:
+        	for state in self.states[group]:
+        		self.stateToGroup[state] = group
+
         for group in self.states:
             if(len(self.states[group])!=0 and (0 not in self.states[group])):
                 new_automata.add_state()
         for group in self.states:
+
             for state in self.states[group]:
+                # print("group: "group)
                 new_automata.add_transition(group,'x',self.stateToGroup[self.automata.get_transition(state,'x')[0]])
                 new_automata.add_transition(group,'y',self.stateToGroup[self.automata.get_transition(state,'y')[0]])
                 break
