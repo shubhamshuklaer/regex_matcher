@@ -67,12 +67,10 @@ class main_window(QtWidgets.QMainWindow):
         dfa_pic = QtGui.QPixmap.fromImage(QtGui.QImage("pics/dfa.png"))
         self.dfa_scene.addPixmap(dfa_pic)
         self.ui.dfa_graphic_view.setScene(self.dfa_scene)
-        #self.ui.dfa_graphic_view.show()
 
         min_dfa_pic = QtGui.QPixmap.fromImage(QtGui.QImage("pics/min_dfa.png"))
         self.min_dfa_scene.addPixmap(min_dfa_pic)
         self.ui.min_dfa_graphic_view.setScene(self.min_dfa_scene)
-        #self.ui.min_dfa_graphic_view.show()
 
 
 
