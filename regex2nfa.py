@@ -15,15 +15,8 @@ class regex2nfa(QtCore.QObject):
         self.nfa=automata("nfa")
 
     def convert_to_nfa(self):
-        #adding & to denote concat
-        temp_regex=""
-        for char in self.regex:
-            if temp_regex != "" and temp_regex[-1] in self.alphabets and char in self.alphabets:
-                temp_regex+="&"+char
-            else:
-                temp_regex+=char
-        self.regex=temp_regex
-
+        self.preprocess()
+        
         self.convert_to_postfix()
 
         stack=[]
@@ -138,6 +131,24 @@ class regex2nfa(QtCore.QObject):
             return False
         else:
             return True
+
+    def preprocess(self):
+        #adding & to denote concat
+        temp_regex=""
+
+        for char in self.regex:
+            if temp_regex != "":
+                if temp_regex[-1] in self.alphabets and char in self.alphabets:
+                    temp_regex+="&"+char
+                elif temp_regex[-1] in ["(",")"] and char in ["(",")"]:
+                    temp_regex+="&"+char
+                else:
+                    temp_regex+=char
+            else:
+                temp_regex+=char
+        self.regex=temp_regex
+        logging.warning(self.regex)
+
 
                         
                     

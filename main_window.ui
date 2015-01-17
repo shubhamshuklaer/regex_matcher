@@ -73,10 +73,10 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <widget class="QTabWidget" name="output_tab_widget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="nfa_tab">
        <attribute name="title">
@@ -108,16 +108,16 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="animation_tab">
-       <attribute name="title">
-        <string>Animation</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QGraphicsView" name="animation_graphic_view"/>
-        </item>
-       </layout>
-      </widget>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="text">
+       <string>Blue colour is for x,Red for y and green for epsilon</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>

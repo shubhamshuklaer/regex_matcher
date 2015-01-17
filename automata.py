@@ -131,7 +131,11 @@ class automata:
             trans = self.get_transition(from_state, ch)
             for state in trans:
                 print( "\t", str(ch), "->", str(state) )
-
+        
+        trans = self.get_transition(from_state, self.epsilon())
+        for state in trans:
+            print( "\t", str(self.epsilon()), "->", str(state) )
+        
     def display_automata(self):
         print( "-----------------\ndisplaying ", self.arg )
         print( "-----------------" )
