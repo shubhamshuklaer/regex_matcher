@@ -41,16 +41,21 @@ class main_window(QtWidgets.QMainWindow):
         dfa2mindfa_obj = dfa2mindfa(aut_dfa)
         dfa2mindfa_obj.minimiseIt()
 
-        aut_min_dfa = automata("min_dfa")
-        aut_min_dfa = dfa2mindfa_obj.create_new_dfa()
-        aut_min_dfa.display_automata()
-        automata.display_nx_automata(aut_min_dfa, "min_dfa", "MINIMAL DFA")
+        self.min_dfa = automata("min_dfa")
+        self.min_dfa = dfa2mindfa_obj.create_new_dfa()
+        self.min_dfa.display_automata()
+        automata.display_nx_automata(self.min_dfa, "min_dfa", "MINIMAL DFA")
 
         self.show_graph()
 
     
     def test_btn_clicked(self):
-        self.show_error("Test")
+        result=self.min_dfa.accepting_string(self.ui.test_line_edit.text())
+        if result:
+            self.ui.test_result_line_edit.setText("Accepted")
+        else:
+            self.ui.test_result_line_edit.setText("Rejected")
+
 
     def show_error(self,error):
         QtWidgets.QMessageBox.critical(self,"Error",error)
