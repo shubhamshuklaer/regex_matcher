@@ -1,3 +1,4 @@
+from __future__ import print_function
 from automata import *
 import operator
 
@@ -21,7 +22,7 @@ class dfa2mindfa:
         
     def print_all(self):
         for group in range(0,self.numberOfdisSet):
-            print self.states[group]
+            print(self.states[group])
 
     def minimiseIt(self):
         check = True
@@ -65,6 +66,7 @@ class dfa2mindfa:
                 self.numberOfdisSet = self.numberOfdisSet+temp
             else:
                 check = False
+            
 
     def create_new_dfa(self):
         #print self.states

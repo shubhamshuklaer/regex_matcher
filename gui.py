@@ -19,8 +19,8 @@ class gui:
 		self.title_name = title_name
 	
 	def to_nx_graph(self, aut):
-		nx_graph = nx.MultiDiGraph(splines=True, sep='+20, 20', overlap='false', nodesep=1.0, labelfontcolor='blue', labelloc='t', label=self.title_name)
-		nx_graph.add_nodes_from(list(aut.states), color='pink', style='filled')
+		nx_graph = nx.MultiDiGraph(splines=True, sep='+5, 5', overlap='false', nodesep='0.25', labelfontcolor='blue', labelloc='t', label=self.title_name)
+		nx_graph.add_nodes_from(list(aut.states), color='pink', style='filled', fixedsize=False)
 		
 			
 		for k in aut.transitions.keys():

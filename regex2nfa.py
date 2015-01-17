@@ -15,15 +15,8 @@ class regex2nfa(QtCore.QObject):
         self.nfa=automata("nfa")
 
     def convert_to_nfa(self):
-        #adding & to denote concat
-        temp_regex=""
-        for char in self.regex:
-            if temp_regex != "" and temp_regex[-1] in self.alphabets and char in self.alphabets:
-                temp_regex+="&"+char
-            else:
-                temp_regex+=char
-        self.regex=temp_regex
-
+        self.preprocess()
+        
         self.convert_to_postfix()
 
         stack=[]
@@ -93,8 +86,8 @@ class regex2nfa(QtCore.QObject):
                     final_state=temp_tuple[1]
 
                     temp_tuple=stack.pop()
-                    self.nfa.add_transition(final_state,epsilon,temp_tuple[0])
-                    final_state=temp_tuple[1]
+                    self.nfa.add_transition(temp_tuple[1],epsilon,initial_state)
+                    initial_state=temp_tuple[0]
 
                     stack.append((initial_state,final_state))
         
@@ -134,10 +127,29 @@ class regex2nfa(QtCore.QObject):
     def heigher_precidence(self,a,b):
         if( a == "*" ):
             return True
-        elif( a == "+" and b == "*" ):
-            return False
-        else:
+        elif( a == "&" and b == "+" ):
             return True
+        else:
+            return False
+
+    def preprocess(self):
+        #adding & to denote concat
+        temp_regex=""
+
+        for char in self.regex:
+            if temp_regex != "":
+                if temp_regex[-1] in self.alphabets or temp_regex[-1] == ")" or temp_regex[-1] == "*":
+                    if char in self.alphabets or char == "(":
+                        temp_regex+="&"+char
+                    else:
+                        temp_regex+=char
+                else:
+                    temp_regex+=char
+            else:
+                temp_regex+=char
+        self.regex=temp_regex
+        logging.warning(self.regex)
+
 
                         
                     
