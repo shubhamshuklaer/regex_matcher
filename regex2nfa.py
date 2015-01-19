@@ -9,7 +9,7 @@ class regex2nfa(QtCore.QObject):
     
     def __init__(self,regex):
         super(QtCore.QObject,self).__init__()
-        self.operators=["+","(",")","*","&","?"]
+        self.operators=["+","(",")","*","&","?","|"]
         self.alphabets=['x','y']
         self.regex=regex
         self.nfa=automata("nfa")
@@ -61,6 +61,16 @@ class regex2nfa(QtCore.QObject):
                     logging.warning(final_state)
 
                     stack.append((initial_state,final_state))
+                elif (char == "+"):
+                    #popping the operand
+                    temp_tuple=stack.pop()
+                    initial_state=temp_tuple[0]
+                    final_state=temp_tuple[1]
+                    
+                    self.nfa.add_transition(final_state,epsilon,initial_state)
+
+                    stack.append((initial_state,final_state))
+
                 elif (char == "?"):
                     #popping the operand
                     temp_tuple=stack.pop()
@@ -71,7 +81,7 @@ class regex2nfa(QtCore.QObject):
 
                     stack.append((initial_state,final_state))
 
-                elif (char == "+"):
+                elif (char == "|"):
                     self.nfa.add_state()
                     new_state+=1
                     initial_state=new_state
@@ -135,9 +145,9 @@ class regex2nfa(QtCore.QObject):
 
 
     def heigher_precidence(self,a,b):
-        if( a == "*" or a == "?"):
+        if( a == "*" or a == "?" or a == "+"):
             return True
-        elif( a == "&" and b == "+" ):
+        elif( a == "&" and b == "|" ):
             return True
         else:
             return False
@@ -148,7 +158,7 @@ class regex2nfa(QtCore.QObject):
 
         for char in self.regex:
             if temp_regex != "":
-                if temp_regex[-1] in self.alphabets or temp_regex[-1] == ")" or temp_regex[-1] == "*" or temp_regex[-1] == "?":
+                if temp_regex[-1] in self.alphabets or temp_regex[-1] in  [")", "*", "?","+"]:
                     if char in self.alphabets or char == "(":
                         temp_regex+="&"+char
                     else:
