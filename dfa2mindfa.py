@@ -29,38 +29,38 @@ class dfa2mindfa:
         while(check):
             temp = 0
             for group in range(0,self.numberOfdisSet):
-                pair = dict()
-                for state in self.states[group]:
-                    x = self.automata.get_transition(state,'x')[0]
-                    y = self.automata.get_transition(state,'y')[0]
-                    x = self.stateToGroup[x]
-                    y = self.stateToGroup[y]
-                    #print x,y,state,group
-                    pair[state] = ((0.5)*(x+y)*(x+y+1)) + y
-                pair = sorted(pair.items(), key=operator.itemgetter(1))
-
-                num = pair[0][1]
-                new_list = False
-                i = 1
-                while(i < len(pair)):
-                   # print i,num, pair[i][1]
-                    while(i < len(pair) and pair[i][1] == num):   
-                        if new_list == True:
-                            if(self.numberOfdisSet+temp-1 in self.states.keys()):
-                                self.states[self.numberOfdisSet+temp-1].add(pair[i][0])
-                                self.states[group].remove(pair[i][0])
-                                self.stateToGroup[pair[i][0]] = self.numberOfdisSet+temp-1
-                            else:
-                                self.states[self.numberOfdisSet+temp-1] = set()
-                                self.states[self.numberOfdisSet+temp-1].add(pair[i][0])
-                                self.states[group].remove(pair[i][0])
-                                self.stateToGroup[pair[i][0]] = self.numberOfdisSet+temp-1
-                        i = i+1    
-                    if i < len(pair):
-                        num = pair[i][1]
-                        temp = temp+1
-                        new_list = True
-
+                if group in self.states.keys() and len(self.states[group])!=0:  
+                    pair = dict()
+                    for state in self.states[group]:
+                        x = self.automata.get_transition(state,'x')[0]
+                        y = self.automata.get_transition(state,'y')[0]
+                        x = self.stateToGroup[x]
+                        y = self.stateToGroup[y]
+                        #print x,y,state,group
+                        pair[state] = ((0.5)*(x+y)*(x+y+1)) + y
+                    pair = sorted(pair.items(), key=operator.itemgetter(1))
+                    print("group:", self.states)
+                    num = pair[0][1]
+                    new_list = False
+                    i = 1
+                    while(i < len(pair)):
+                       # print i,num, pair[i][1]
+                        while(i < len(pair) and pair[i][1] == num):   
+                            if new_list == True:
+                                if(self.numberOfdisSet+temp-1 in self.states.keys()):
+                                    self.states[self.numberOfdisSet+temp-1].add(pair[i][0])
+                                    self.states[group].remove(pair[i][0])
+                                    self.stateToGroup[pair[i][0]] = self.numberOfdisSet+temp-1
+                                else:
+                                    self.states[self.numberOfdisSet+temp-1] = set()
+                                    self.states[self.numberOfdisSet+temp-1].add(pair[i][0])
+                                    self.states[group].remove(pair[i][0])
+                                    self.stateToGroup[pair[i][0]] = self.numberOfdisSet+temp-1
+                            i = i+1    
+                        if i < len(pair):
+                            num = pair[i][1]
+                            temp = temp+1
+                            new_list = True
             if(temp != 0):
                 check = True
                 self.numberOfdisSet = self.numberOfdisSet+temp
@@ -79,8 +79,8 @@ class dfa2mindfa:
                 self.states[0] = temp
         # print(self.states)
         for group in self.states:
-        	for state in self.states[group]:
-        		self.stateToGroup[state] = group
+            for state in self.states[group]:
+                self.stateToGroup[state] = group
 
         for group in self.states:
             if(len(self.states[group])!=0 and (0 not in self.states[group])):
