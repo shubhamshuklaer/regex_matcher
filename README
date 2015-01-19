@@ -1,10 +1,11 @@
 1. Overview: A regex parser, it converts the given regex into a nfa then converts it into a dfa then finally to minimized dfa. The minimized dfa is the used to test any input string.
-1. Compilation: make
-2. Run: python start.py
-3. Requirements: python 2.7,pyuic5,PyQt5(compiled with python 2.7), python-networkx, python-matplotlib, python-numpy, python-pygraphviz
-4. Regex operators supported : 
+2. Compilation: make
+3. Run: python start.py
+4. Requirements: python 2.7,pyuic5,PyQt5(compiled with python 2.7), python-networkx, python-matplotlib, python-numpy, python-pygraphviz
+5. Regex operators supported : 
     1. klene closure "*"
-    2. one or more operator "?" 
-    3. Or operator "+"
-    4. concatination
-    5. brackets
+    2. zero or one operator "?"
+    3. one or more operator "|"
+    4. Or operator "|"
+    5. concatination
+    6. brackets
